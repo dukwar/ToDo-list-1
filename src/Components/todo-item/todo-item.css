@@ -20,7 +20,7 @@
 }
 
 .completed,
-.fa-check-circle {
+.fa_check_circle {
     color: #ccc;
 }
 
@@ -30,8 +30,19 @@
 }
 
 .mark {
+    background-image: url("../../img/check-mark.png");
+    width: 30px;
+    height: 30px;
     position: absolute;
     left: 20px;
+}
+
+.markX {
+    background-image: url("../../img/check-mark.png");
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 20px;
 }
 
 .todo-item:hover .fa-times {

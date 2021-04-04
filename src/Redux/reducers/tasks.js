@@ -1,25 +1,16 @@
-import {ADD_TASK} from "../constants";
+import {ADD_TASK, REMOVE_TASK, UPDATE_TASK} from "../constants";
+import {load} from 'redux-localstorage-simple'
 
-const initialState = [
-    {
-        id: 1,
-        text: 'Learn ReactJS',
-        isCompleted: true,
-    },
-    {
-        id: 2,
-        text: 'Learn Redux',
-        isCompleted: false,
-    },
-    {
-        id: 3,
-        text: 'Learn React Router',
-        isCompleted: false,
+let TASKS = load({namespace:'todo-list'})
+
+if (!TASKS || !TASKS.tasks || !TASKS.tasks.length) {
+    TASKS = {
+        tasks: []
     }
+}
 
-]
 
-const tasks = (state= initialState, {type, id, text, isCompleted}) => {
+const tasks = (state= TASKS.tasks, {type, id, text, isCompleted}) => {
     switch (type) {
         case ADD_TASK:
             return [
@@ -29,6 +20,22 @@ const tasks = (state= initialState, {type, id, text, isCompleted}) => {
                     text,
                     isCompleted
                 }
+            ]
+
+        case REMOVE_TASK:
+            return [
+                ...state.filter((task) => task.id !== id )
+            ]
+
+        case UPDATE_TASK:
+            return [
+                ...state.map((task) => {
+                    if (task.id === id) {
+                        task.isCompleted = !task.isCompleted
+                    }
+
+                    return task
+                })
             ]
 
         default:
